@@ -37,6 +37,9 @@ class PlateRead(object) :
 
     def __op_helper(self,other,op) :
 
+        #TODO need to change these ops so they only operate on
+        # masked values?
+
         new_values = None
         new_empty_mask = None
         new_error_mask = None
