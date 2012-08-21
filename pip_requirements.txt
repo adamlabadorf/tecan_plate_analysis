@@ -1,0 +1,8 @@
+argparse==1.2.1
+ipython==0.13
+matplotlib==1.1.0
+numpy==1.6.2
+reStUtil==0.1
+tecan-reader==0.1
+wsgiref==0.1.2
+xlrd==0.8.0
