@@ -1,1 +1,4 @@
-from parser import BaseParser, parse, plot_plate
+from base import PlateRead, IntensityRead
+
+from parser import parse
+
