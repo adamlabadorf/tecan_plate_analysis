@@ -42,6 +42,7 @@ class BaseParser :
                 if first_val.startswith('Label') :
                     tag, curr_label = first_val.split(':')
                     curr_label = curr_label.strip()
+                    d.setdefault('labels',[]).append(curr_label)
                 elif first_val.startswith('Wavel.') :
                     print 'wavelength scan detected'
                     header_row = [sheet.cell(row_i,i) for i in xrange(sheet.ncols)]
@@ -67,9 +68,7 @@ class BaseParser :
                             if val != '' :
                                 intensities[BaseParser.letter_ind_map[row],plate_ind-1] = val
                         row_i += 1
-                    d.setdefault('intensities',[]).append(intensity_rows)
-                    plot_fn = '%s_%s.png'%(sheet.name.replace(' ','_'),curr_label.replace(' ','_'))
-                    plot_plate(intensities,plot_fn)
+                    d.setdefault('intensities',[]).append(intensities)
 
                 row_i += 1
 
@@ -88,17 +87,19 @@ def plot_plate(intensities,fn) :
 
     # over reading
     xy_over = xy[vals==-1]
-    ax.scatter(xy_over[:,0],xy_over[:,0],c='r',marker='s')
+    ax.scatter(xy_over[:,0],xy_over[:,1],s=240,c='r',marker='s')
 
     # intensities
-    xy_int = xy[vals>=0]
-    int_vals = vals[vals>=0]
-    scaled_vals = (int_vals-int_vals.min())/(int_vals.max()-int_vals.min())
+    # sometimes there are no intensity values
+    if (vals>=0).sum() > 0 :
+        xy_int = xy[vals>=0]
+        int_vals = vals[vals>=0]
+        scaled_vals = (int_vals-int_vals.min())/(int_vals.max()-int_vals.min())
 
-    # hsv
-    val_colors = [colorsys.hsv_to_rgb(0.25,i,1.) for i in scaled_vals]
+        # hsv
+        val_colors = [colorsys.hsv_to_rgb(0.25,i,1.) for i in scaled_vals]
 
-    ax.scatter(xy_int[:,0],xy_int[:,1],c=val_colors,s=240,linewidths=1)
+        ax.scatter(xy_int[:,0],xy_int[:,1],c=val_colors,s=240,linewidths=1)
 
     ax.set_title(fn)
     ax.set_frame_on(False)
@@ -107,7 +108,7 @@ def plot_plate(intensities,fn) :
 
     ax.set_yticklabels('ABCDEFGH '[::-1])
 
-    ax.set_xlim(0,11)
-    ax.set_ylim(0,11)
+    ax.set_xlim(-1,12)
+    ax.set_ylim(-1,8)
 
     f.savefig(fn)
