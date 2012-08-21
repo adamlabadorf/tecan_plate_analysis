@@ -1,1 +1,1 @@
-from parser import BaseParser, parse
+from parser import BaseParser, parse, plot_plate
