@@ -1,11 +1,10 @@
-import colorsys
 
 import numpy
 import xlrd
 
 from collections import defaultdict
 
-from matplotlib.pyplot import figure
+from base import IntensityRead
 
 def parse(fn) :
     p = BaseParser(fn)
@@ -57,58 +56,28 @@ class BaseParser :
                     print 'intensity readings detected'
                     plate_inds = [sheet.cell_value(row_i,i) for i in xrange(1,sheet.ncols)]
                     row_i += 1
-                    intensity_rows = []
-                    intensities = numpy.zeros(shape=(8,12))-2 # -2 means data not set
+
+                    intensities = numpy.zeros(shape=(8,12))
+                    empty = numpy.ones_like(intensities,dtype=bool)
+                    error = numpy.zeros_like(intensities,dtype=bool)
+
                     while sheet.cell_value(row_i,0) != '' :
                         row = sheet.cell_value(row_i,0)
                         intensity_row = [sheet.cell_value(row_i,i) for i in xrange(1,sheet.ncols)]
+
                         for plate_ind, val in zip(plate_inds,intensity_row) :
+                            if plate_ind == '' :
+                                continue
                             if val == 'OVER' :
-                                val = -1 # -1 means machine could not read intensity
-                            if val != '' :
+                                error[BaseParser.letter_ind_map[row],plate_ind-1] = True
+                            elif val != '' :
+                                empty[BaseParser.letter_ind_map[row],plate_ind-1] = False
                                 intensities[BaseParser.letter_ind_map[row],plate_ind-1] = val
                         row_i += 1
-                    d.setdefault('intensities',[]).append(intensities)
+
+                    plate_read = IntensityRead(curr_label,intensities, empty, error)
+                    d.setdefault('plates',[]).append(plate_read)
 
                 row_i += 1
 
-def plot_plate(intensities,fn) :
 
-    f = figure()
-    ax = f.gca()
-
-    x,y = range(12),range(7,-1,-1)
-    xy = numpy.transpose([numpy.tile(x,len(y)),numpy.repeat(y,len(x))])
-    vals = intensities.ravel()
-    
-    # no reading
-    xy_noread = xy[vals==-2]
-    ax.scatter(xy_noread[:,0],xy_noread[:,1],marker='x')
-
-    # over reading
-    xy_over = xy[vals==-1]
-    ax.scatter(xy_over[:,0],xy_over[:,1],s=240,c='r',marker='s')
-
-    # intensities
-    # sometimes there are no intensity values
-    if (vals>=0).sum() > 0 :
-        xy_int = xy[vals>=0]
-        int_vals = vals[vals>=0]
-        scaled_vals = (int_vals-int_vals.min())/(int_vals.max()-int_vals.min())
-
-        # hsv
-        val_colors = [colorsys.hsv_to_rgb(0.25,i,1.) for i in scaled_vals]
-
-        ax.scatter(xy_int[:,0],xy_int[:,1],c=val_colors,s=240,linewidths=1)
-
-    ax.set_title(fn)
-    ax.set_frame_on(False)
-
-    ax.set_xticklabels(xrange(1,13))
-
-    ax.set_yticklabels('ABCDEFGH '[::-1])
-
-    ax.set_xlim(-1,12)
-    ax.set_ylim(-1,8)
-
-    f.savefig(fn)
