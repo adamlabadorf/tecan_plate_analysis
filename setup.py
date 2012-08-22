@@ -5,7 +5,7 @@ import sys
 
 from distutils.core import setup
 
-scripts = ['scripts/test_parser.py',]
+scripts = [ ]
 
 # setup and install
 setup(name='tecan_reader',

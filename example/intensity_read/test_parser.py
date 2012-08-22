@@ -13,13 +13,13 @@ if __name__ == '__main__' :
 
     for sheet, d in p.runs.items() :
         print 'Processing',sheet
-        sheet_fn = 'example/%s_run.rst'%sheet.replace(' ','_')
+        sheet_fn = '%s_run.rst'%sheet.replace(' ','_')
         doc = ReStDocument(sheet_fn,title=sheet+' Tecan Reads')
         label_plates = zip(d.get('labels',[]),d.get('plates',[]))
         for label, plate in label_plates :
             print plate
             plot_fn = '%s_%s.png'%(sheet.replace(' ','_'),label.replace(' ','_'))
-            plate.plot_plate('example/'+plot_fn)
+            plate.plot_plate(''+plot_fn)
             doc.add(ReStImage(plot_fn))
         doc.write()
         doc.close()
