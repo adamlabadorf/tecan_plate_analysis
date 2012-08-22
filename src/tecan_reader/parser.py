@@ -44,14 +44,39 @@ class BaseParser :
                     d.setdefault('labels',[]).append(curr_label)
                 elif first_val.startswith('Wavel.') :
                     print 'wavelength scan detected'
-                    header_row = [sheet.cell(row_i,i) for i in xrange(sheet.ncols)]
+                    plate_inds = [sheet.cell_value(row_i,i) for i in xrange(1,sheet.ncols)]
                     row_i += 1
-                    scan_rows = []
+
+                    scans = []
                     while sheet.cell_value(row_i,0) != '' :
-                        scan_row = [sheet.cell(row_i,i) for i in xrange(sheet.ncols)]
-                        scan_rows.append(scan_row)
+
+                        wavelen = sheet.cell_value(row_i,0)
+                        print 'processing scan wavelength',wavelen
+
+                        intensity_row = [sheet.cell_value(row_i,i) for i in xrange(1,sheet.ncols)]
+
+                        intensities = numpy.zeros(shape=(8,12))
+                        empty = numpy.ones_like(intensities,dtype=bool)
+                        error = numpy.zeros_like(intensities,dtype=bool)
+
+                        for ind, val in zip(plate_inds,intensity_row) :
+
+                            if ind == '' :
+                                continue
+
+                            row, col = ind[0], int(ind[1:])
+
+                            if val == 'OVER' :
+                                error[BaseParser.letter_ind_map[row],col-1] = True
+                            elif val != '' :
+                                empty[BaseParser.letter_ind_map[row],col-1] = False
+                                intensities[BaseParser.letter_ind_map[row],col-1] = val
+                        scans.append(IntensityRead('%s: %d'%(curr_label,wavelen),intensities, empty, error))
+
                         row_i += 1
-                    d.setdefault('scans',[]).append(scan_rows)
+                    d.setdefault('scans',[]).append(scans)
+
+
                 elif first_val.startswith('<>') :
                     print 'intensity readings detected'
                     plate_inds = [sheet.cell_value(row_i,i) for i in xrange(1,sheet.ncols)]
