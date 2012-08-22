@@ -8,6 +8,8 @@ from matplotlib.pyplot import figure
 
 class PlateRead(object) :
 
+    letter_ind_map = dict((c,i) for i,c in enumerate(u'ABCDEFGH'))
+
     def __init__(self,label,values,empty_mask=None,error_mask=None) :
 
         self.label = label
@@ -53,17 +55,37 @@ class PlateRead(object) :
             new_empty_mask = self.empty_mask & other.empty_mask
             new_error_mask = self.error_mask & other.error_mask
 
-        return PlateRead(new_values,empty_mask,error_mask)
+        return PlateRead('',new_values,new_empty_mask,new_error_mask)
 
     def __str__(self) :
         return '%s(%s)'%(self.__class__.__name__,self.label)
 
     def __repr__(self) :
         return '%s("%s",%s,%s,%s)'%(self.__class__.__name__,
+                                    self.label,
                                     repr(self.values),
                                     repr(self.empty_mask),
                                     repr(self.error_mask)
                                    )
+
+    def get(self,item,*addnl) :
+        # translate letter-column codes into real indices
+        real_coords = []
+        for coord in [item]+list(addnl) :
+            try :
+                row, col = coord[0], int(coord[1:])
+            except TypeError :
+                print 'could not interpret coordinate %s, skipping'%coord
+                continue
+            row_i = 'ABCDEFGH'.index(row.upper())
+            col_i = col-1
+            real_coords.append((row_i,col_i))
+
+        x,y = zip(*real_coords)
+        return self.values[x,y]
+
+    def __getitem__(self,item,*addnl) :
+        return self.get(item,*addnl)
 
 class IntensityRead(PlateRead) :
 
