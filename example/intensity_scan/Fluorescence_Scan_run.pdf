@@ -1,0 +1,319 @@
+%PDF-1.4
+%“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
+% 'BasicFonts': class PDFDictionary 
+1 0 obj
+% The standard fonts dictionary
+<< /F1 2 0 R
+ /F2 3 0 R >>
+endobj
+% 'F1': class PDFType1Font 
+2 0 obj
+% Font Helvetica
+<< /BaseFont /Helvetica
+ /Encoding /WinAnsiEncoding
+ /Name /F1
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'F2': class PDFType1Font 
+3 0 obj
+% Font Helvetica-Bold
+<< /BaseFont /Helvetica-Bold
+ /Encoding /WinAnsiEncoding
+ /Name /F2
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'Page1': class PDFPage 
+4 0 obj
+% Page dictionary
+<< /Contents 19 0 R
+ /MediaBox [ 0
+ 0
+ 595.2756
+ 841.8898 ]
+ /Parent 18 0 R
+ /Resources << /Font 1 0 R
+ /ProcSet [ /PDF
+ /Text
+ /ImageB
+ /ImageC
+ /ImageI ] >>
+ /Rotate 0
+ /Trans <<  >>
+ /Type /Page >>
+endobj
+% 'R5': class PDFCatalog 
+5 0 obj
+% Document Root
+<< /Outlines 7 0 R
+ /PageLabels 20 0 R
+ /PageMode /UseNone
+ /Pages 18 0 R
+ /Type /Catalog >>
+endobj
+% 'R6': class PDFInfo 
+6 0 obj
+<< /Author ()
+ /CreationDate (D:20120821202841+08'00')
+ /Creator (\(unspecified\))
+ /Keywords ()
+ /Producer (ReportLab PDF Library - www.reportlab.com)
+ /Subject (\(unspecified\))
+ /Title (Fluorescence Scan Tecan Intensity Scan) >>
+endobj
+% 'R7': class PDFOutlines 
+7 0 obj
+<< /Count 10
+ /First 8 0 R
+ /Last 17 0 R
+ /Type /Outlines >>
+endobj
+% 'Outline.0': class OutlineEntryObject 
+8 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 729.0236
+ 0 ]
+ /Next 9 0 R
+ /Parent 7 0 R
+ /Title (Ex580) >>
+endobj
+% 'Outline.1': class OutlineEntryObject 
+9 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 696.0236
+ 0 ]
+ /Next 10 0 R
+ /Parent 7 0 R
+ /Prev 8 0 R
+ /Title (Ex581) >>
+endobj
+% 'Outline.2': class OutlineEntryObject 
+10 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 663.0236
+ 0 ]
+ /Next 11 0 R
+ /Parent 7 0 R
+ /Prev 9 0 R
+ /Title (Ex582) >>
+endobj
+% 'Outline.3': class OutlineEntryObject 
+11 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 630.0236
+ 0 ]
+ /Next 12 0 R
+ /Parent 7 0 R
+ /Prev 10 0 R
+ /Title (Ex583) >>
+endobj
+% 'Outline.4': class OutlineEntryObject 
+12 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 597.0236
+ 0 ]
+ /Next 13 0 R
+ /Parent 7 0 R
+ /Prev 11 0 R
+ /Title (Ex584) >>
+endobj
+% 'Outline.5': class OutlineEntryObject 
+13 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 564.0236
+ 0 ]
+ /Next 14 0 R
+ /Parent 7 0 R
+ /Prev 12 0 R
+ /Title (Ex585) >>
+endobj
+% 'Outline.6': class OutlineEntryObject 
+14 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 531.0236
+ 0 ]
+ /Next 15 0 R
+ /Parent 7 0 R
+ /Prev 13 0 R
+ /Title (Ex586) >>
+endobj
+% 'Outline.7': class OutlineEntryObject 
+15 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 498.0236
+ 0 ]
+ /Next 16 0 R
+ /Parent 7 0 R
+ /Prev 14 0 R
+ /Title (Ex587) >>
+endobj
+% 'Outline.8': class OutlineEntryObject 
+16 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 465.0236
+ 0 ]
+ /Next 17 0 R
+ /Parent 7 0 R
+ /Prev 15 0 R
+ /Title (Ex588) >>
+endobj
+% 'Outline.9': class OutlineEntryObject 
+17 0 obj
+<< /Dest [ 4 0 R
+ /XYZ
+ 62.69291
+ 432.0236
+ 0 ]
+ /Parent 7 0 R
+ /Prev 16 0 R
+ /Title (Ex589) >>
+endobj
+% 'R18': class PDFPages 
+18 0 obj
+% page tree
+<< /Count 1
+ /Kids [ 4 0 R ]
+ /Type /Pages >>
+endobj
+% 'R19': class PDFStream 
+19 0 obj
+% page stream
+<< /Length 1280 >>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 741.0236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4 Tm /F2 20 Tf 24 TL 41.53488 0 Td (Fluorescence Scan Tecan Intensity Scan) Tj T* -41.53488 0 Td ET
+Q
+Q
+q
+1 0 0 1 62.69291 708.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Ex580) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 675.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Ex581) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 642.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Ex582) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 609.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Ex583) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 576.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Ex584) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 543.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Ex585) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 510.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Ex586) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 477.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Ex587) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 444.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Ex588) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 411.0236 cm
+q
+BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Ex589) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+% 'R20': class PDFPageLabels 
+20 0 obj
+% Document Root
+<< /Nums [ 0
+ 21 0 R ] >>
+endobj
+% 'R21': class PDFPageLabel 
+21 0 obj
+% None
+<< /S /D
+ /St 1 >>
+endobj
+xref
+0 22
+0000000000 65535 f
+0000000113 00000 n
+0000000221 00000 n
+0000000386 00000 n
+0000000559 00000 n
+0000000838 00000 n
+0000000994 00000 n
+0000001278 00000 n
+0000001402 00000 n
+0000001564 00000 n
+0000001741 00000 n
+0000001919 00000 n
+0000002098 00000 n
+0000002277 00000 n
+0000002456 00000 n
+0000002635 00000 n
+0000002814 00000 n
+0000002993 00000 n
+0000003141 00000 n
+0000003248 00000 n
+0000004631 00000 n
+0000004724 00000 n
+trailer
+<< /ID 
+ % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
+ [(.EY\244\210 \365\213K?\027@ \315\236\321) (.EY\244\210 \365\213K?\027@ \315\236\321)] 
+
+ /Info 6 0 R
+ /Root 5 0 R
+ /Size 22 >>
+startxref
+4771
+%%EOF
