@@ -1,3 +1,4 @@
+import logging
 
 import numpy
 import xlrd
@@ -25,25 +26,21 @@ class BaseParser :
         # TODO: read all the stuff at the top of the spreadsheet
 
         for sheet in self.book.sheets() :
-            print sheet.name
+            logging.info(sheet.name)
             d = self.runs[sheet.name]
 
             row_i = 0
             curr_label = None
             while row_i < sheet.nrows :
 
-                try :
-                    first_val = sheet.cell(row_i,0).value
-                except :
-                    print sheet.name, row_i, sheet.nrows, sheet.ncols
-                    break
+                first_val = sheet.cell(row_i,0).value
 
                 if first_val.startswith('Label') :
                     tag, curr_label = first_val.split(':')
                     curr_label = curr_label.strip()
                     d.setdefault('labels',[]).append(curr_label)
                 elif first_val.startswith('Wavel.') :
-                    print 'wavelength scan detected'
+                    logging.debug('wavelength scan detected')
                     plate_inds = [sheet.cell_value(row_i,i) for i in xrange(1,sheet.ncols)]
                     row_i += 1
 
@@ -51,7 +48,7 @@ class BaseParser :
                     while sheet.cell_value(row_i,0) != '' :
 
                         wavelen = sheet.cell_value(row_i,0)
-                        print 'processing scan wavelength',wavelen
+                        logging.debug('processing scan wavelength %s'%wavelen)
 
                         intensity_row = [sheet.cell_value(row_i,i) for i in xrange(1,sheet.ncols)]
 
@@ -78,7 +75,7 @@ class BaseParser :
 
 
                 elif first_val.startswith('<>') :
-                    print 'intensity readings detected'
+                    logging.debug('intensity readings detected')
                     plate_inds = [sheet.cell_value(row_i,i) for i in xrange(1,sheet.ncols)]
                     row_i += 1
 
