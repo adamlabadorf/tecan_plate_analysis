@@ -10,10 +10,11 @@ class PlateRead(object) :
 
     letter_ind_map = dict((c,i) for i,c in enumerate(u'ABCDEFGH'))
 
-    def __init__(self,label,values,empty_mask=None,error_mask=None) :
+    def __init__(self,label,values,empty_mask=None,error_mask=None,metadata=None) :
 
         self.label = label
         self.values = values
+        self.metadata = metadata
 
         if empty_mask is None :
             self.empty_mask = numpy.zeros_like(values)

@@ -31,6 +31,7 @@ class BaseParser :
 
             row_i = 0
             curr_label = None
+            curr_metadata = {}
             while row_i < sheet.nrows :
 
                 first_val = sheet.cell(row_i,0).value
@@ -39,6 +40,8 @@ class BaseParser :
                     tag, curr_label = first_val.split(':')
                     curr_label = curr_label.strip()
                     d.setdefault('labels',[]).append(curr_label)
+                    # blank the metadata
+                    curr_metadata = {}
                 elif first_val.startswith('Wavel.') :
                     logging.debug('wavelength scan detected')
                     plate_inds = [sheet.cell_value(row_i,i) for i in xrange(1,sheet.ncols)]
@@ -68,7 +71,10 @@ class BaseParser :
                             elif val != '' :
                                 empty[BaseParser.letter_ind_map[row],col-1] = False
                                 intensities[BaseParser.letter_ind_map[row],col-1] = val
-                        scans.append(IntensityRead('%s: %d'%(curr_label,wavelen),intensities, empty, error))
+
+                        this_metadata = curr_metadata.copy()
+                        this_metadata['Emission Wavelength'] = wavelen
+                        scans.append(IntensityRead('%s: %d'%(curr_label,wavelen),intensities, empty, error, this_metadata))
 
                         row_i += 1
                     d.setdefault('scans',[]).append(scans)
@@ -97,8 +103,12 @@ class BaseParser :
                                 intensities[BaseParser.letter_ind_map[row],plate_ind-1] = val
                         row_i += 1
 
-                    plate_read = IntensityRead(curr_label,intensities, empty, error)
+                    plate_read = IntensityRead(curr_label,intensities, empty, error, curr_metadata)
                     d.setdefault('plates',[]).append(plate_read)
+                elif first_val != '' :
+                    row = [sheet.cell_value(row_i,i) for i in xrange(sheet.ncols)]
+                    row = [v for v in row if v != '']
+                    curr_metadata[row[0]] = row[1:]
 
                 row_i += 1
 
