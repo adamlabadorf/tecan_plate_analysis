@@ -19,19 +19,21 @@ if __name__ == '__main__' :
 
     print "found sheets: %s"%(', '.join(p.runs.keys()))
 
-    blank = ('D1','E1')
-    wt = ('D2','E2')
+    blank_plate1 = ('D1','E1')
+    blank_plate2 = ('A2','B2')
+    wt_plate1 = ('D2','E2')
+    wt_plate2 = ('A3','B3')
 
-    expt_sets = {'RFP': (('D3','E3'),('D4','E4')),
-                 'YFP': (('D7','E7'),('D8','E8')),
-                 'Venus': (('D9','E9'),('D10','E10'))
-                }
-
-    sn_ratios = {'RFP': (('D3','E3'),wt),
-                 'mOrange': (('D5','E5'),wt),
-                 'YFP': (('D7','E7'),wt),
-                 'Venus': (('D9','E9'),wt),
-                 'CFP': (('D11','E11'),wt)
+    sn_ratios = {'RFP': (('D3','E3'),wt_plate1),
+                 'mCherry': (('A6','B6'),wt_plate2),
+                 'mOrange': (('D5','E5'),wt_plate1),
+                 'YFP': (('D7','E7'),wt_plate1),
+                 'Venus': (('D9','E9'),wt_plate1),
+                 'EYFP': (('A8','B8'),wt_plate2),
+                 'CFP': (('D11','E11'),wt_plate1),
+                 'ECFP': (('A12','B12'),wt_plate2),
+                 'GFPm3': (('A4','B4'),wt_plate2),
+                 'YGFP': (('A10','B10'),wt_plate2),
                 }
 
     for name, (expt, cntl) in sn_ratios.items() :
@@ -43,8 +45,8 @@ if __name__ == '__main__' :
             print "Couldn't find sheet named %s, skipping"%name
             continue
 
-        print "Analyzing",name
-        print "Labels found:"," ,".join(fl_sheet['labels'])
+        print "Analyzing S/N ratios for",name
+        #print "Labels found:"," ,".join(fl_sheet['labels'])
 
         fl_scans = zip(fl_sheet['labels'],fl_sheet['scans'])
 
@@ -84,10 +86,15 @@ if __name__ == '__main__' :
 
     # who loves copy and paste programming?!
     fold_change = {'RFP': (('D3','E3'),('D4','E4')),
+                 'mCherry': (('A6','B6'),('A7','B7')),
                  'mOrange': (('D5','E5'),('D6','E6')),
                  'YFP': (('D7','E7'),('D8','E8')),
                  'Venus': (('D9','E9'),('D10','E10')),
-                 'CFP': (('D11','E11'),('D12','E12'))
+                 'EYFP': (('A8','B8'),('A9','B9')),
+                 'CFP': (('D11','E11'),('D12','E12')),
+                 'ECFP': (('A12','B12'),('C1','D1')),
+                 'GFPm3': (('A4','B4'),('A5','B5')),
+                 'YGFP': (('A10','B10'),('A11','B11')),
                 }
 
     for name, (expt, cntl) in fold_change.items() :
@@ -99,8 +106,8 @@ if __name__ == '__main__' :
             print "Couldn't find sheet named %s, skipping"%name
             continue
 
-        print "Analyzing",name
-        print "Labels found:"," ,".join(fl_sheet['labels'])
+        print "Analyzing fold change for",name
+        #print "Labels found:",", ".join(fl_sheet['labels'])
 
         fl_scans = zip(fl_sheet['labels'],fl_sheet['scans'])
 
@@ -110,7 +117,6 @@ if __name__ == '__main__' :
         sn_ratios = []
         for label, scans in fl_scans :
             if label == 'OD' :
-                print 'found OD label'
                 continue
             sn_ratio_row = []
             expt_avgs = []
