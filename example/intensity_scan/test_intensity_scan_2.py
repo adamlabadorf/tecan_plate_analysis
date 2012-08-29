@@ -22,7 +22,7 @@ if __name__ == '__main__' :
     blank_plate1 = ('D1','E1')
     blank_plate2 = ('A2','B2')
     wt_plate1 = ('D2','E2')
-    wt_plate2 = ('A3','B3')
+    wt_plate2 = ('C2','D2')
 
     sn_ratios = {'RFP': (('D3','E3'),wt_plate1),
                  'mCherry': (('A6','B6'),wt_plate2),
@@ -46,7 +46,7 @@ if __name__ == '__main__' :
             continue
 
         print "Analyzing S/N ratios for",name
-        #print "Labels found:"," ,".join(fl_sheet['labels'])
+        print "Labels found:"," ,".join(fl_sheet['labels'])
 
         fl_scans = zip(fl_sheet['labels'],fl_sheet['scans'])
 
@@ -107,12 +107,13 @@ if __name__ == '__main__' :
             continue
 
         print "Analyzing fold change for",name
-        #print "Labels found:",", ".join(fl_sheet['labels'])
+        print "Labels found:",", ".join(fl_sheet['labels'])
 
         fl_scans = zip(fl_sheet['labels'],fl_sheet['scans'])
 
         # OD was the first thing
         od_scan = fl_sheet['plates'][0]
+        print od_scan
 
         sn_ratios = []
         for label, scans in fl_scans :
