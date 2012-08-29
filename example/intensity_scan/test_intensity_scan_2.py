@@ -31,10 +31,28 @@ if __name__ == '__main__' :
                  'Venus': (('D9','E9'),wt_plate1),
                  'EYFP': (('A8','B8'),wt_plate2),
                  'CFP': (('D11','E11'),wt_plate1),
-                 'ECFP': (('A12','B12'),wt_plate2),
+                 'ECFP': (('A10','B10'),wt_plate2),
                  'GFPm3': (('A4','B4'),wt_plate2),
-                 'YGFP': (('A10','B10'),wt_plate2),
+                 'YGFP': (('A12','B12'),wt_plate2),
                 }
+
+    singleton = 'blah'
+    #sn_ratios = {singleton:sn_ratios[singleton]}
+
+    # who loves copy and paste programming?!
+    fold_change = {'RFP': (('D3','E3'),('D4','E4')),
+                 'mCherry': (('A6','B6'),('A7','B7')),
+                 'mOrange': (('D5','E5'),('D6','E6')),
+                 'YFP': (('D7','E7'),('D8','E8')),
+                 'Venus': (('D9','E9'),('D10','E10')),
+                 'EYFP': (('A8','B8'),('A9','B9')),
+                 'CFP': (('D11','E11'),('D12','E12')),
+                 'ECFP': (('A10','B10'),('A11','B11')),
+                 'GFPm3': (('A4','B4'),('A5','B5')),
+                 'YGFP': (('A12','B12'),('C1','D1')),
+                }
+
+    #fold_change = {singleton:fold_change[singleton]}
 
     for name, (expt, cntl) in sn_ratios.items() :
 
@@ -54,10 +72,12 @@ if __name__ == '__main__' :
         od_scan = fl_sheet['plates'][0]
 
         sn_ratios = []
+        masked = []
         for label, scans in fl_scans :
             if label == 'OD' :
                 continue
             sn_ratio_row = []
+            masked_row = []
             expt_avgs = []
             cntl_avgs = []
             for scan in scans :
@@ -69,11 +89,21 @@ if __name__ == '__main__' :
 
                 sn_ratio_row.append(numpy.log2(expt_avg/cntl_avg))
 
+                mask = normed_scan.get_masked(*expt).any() | normed_scan.get_masked(*expt).any()
+                masked_row.append(mask)
+                #sn_ratio_row.append((expt_avg-cntl_avg)/expt_avg)
+
             sn_ratios.append(sn_ratio_row)
-        
+            masked.append(masked_row)
+
         wavelens = ['%d'%s.metadata.get('Emission Wavelength') for s in fl_sheet['scans'][0]]
 
-        pcolor(numpy.array(sn_ratios))
+        import pprint
+        pprint.pprint(masked)
+        mask_mat = numpy.array(masked)
+        print mask_mat.shape
+        sn_ratios_mat = numpy.ma.array(sn_ratios,mask=mask)
+        pcolor(sn_ratios_mat)
         xticks(numpy.arange(len(fl_sheet['labels'][1:]))+0.5,wavelens)
         yticks(numpy.arange(len(fl_sheet['labels'][1:]))+0.5,fl_sheet['labels'][1:])
         axis('tight')
@@ -84,18 +114,6 @@ if __name__ == '__main__' :
         clf()
 
 
-    # who loves copy and paste programming?!
-    fold_change = {'RFP': (('D3','E3'),('D4','E4')),
-                 'mCherry': (('A6','B6'),('A7','B7')),
-                 'mOrange': (('D5','E5'),('D6','E6')),
-                 'YFP': (('D7','E7'),('D8','E8')),
-                 'Venus': (('D9','E9'),('D10','E10')),
-                 'EYFP': (('A8','B8'),('A9','B9')),
-                 'CFP': (('D11','E11'),('D12','E12')),
-                 'ECFP': (('A12','B12'),('C1','D1')),
-                 'GFPm3': (('A4','B4'),('A5','B5')),
-                 'YGFP': (('A10','B10'),('A11','B11')),
-                }
 
     for name, (expt, cntl) in fold_change.items() :
 
