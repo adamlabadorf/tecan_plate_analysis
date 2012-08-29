@@ -69,10 +69,10 @@ class PlateRead(object) :
                                     repr(self.error_mask)
                                    )
 
-    def get(self,item,*addnl) :
+    def _translate_coords(self,orig_coords) :
         # translate letter-column codes into real indices
         real_coords = []
-        for coord in [item]+list(addnl) :
+        for coord in orig_coords :
             try :
                 row, col = coord[0], int(coord[1:])
             except TypeError :
@@ -82,8 +82,28 @@ class PlateRead(object) :
             col_i = col-1
             real_coords.append((row_i,col_i))
 
+        return real_coords
+       
+    def get(self,item,*addnl) :
+        addnl = list(addnl)
+        real_coords = self._translate_coords([item]+addnl)
         x,y = zip(*real_coords)
         return self.values[x,y]
+
+    def get_empty(self,item,*addnl) :
+        addnl = list(addnl)
+        real_coords = self._translate_coords([item]+addnl)
+        x,y = zip(*real_coords)
+        return self.empty_mask[x,y]
+
+    def get_error(self,item,*addnl) :
+        addnl = list(addnl)
+        real_coords = self._translate_coords([item]+addnl)
+        x,y = zip(*real_coords)
+        return self.error_mask[x,y]
+
+    def get_masked(self,item,*addnl) :
+        return (self.get_empty(item,*addnl) | self.get_error(item,*addnl))
 
     def __getitem__(self,item,*addnl) :
         return self.get(item,*addnl)
